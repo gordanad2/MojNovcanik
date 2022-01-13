@@ -88,14 +88,6 @@ public class RegistrovaniKorisnici extends Osoba {
     }
     // metoda za registraciju korisnika
     public static void registracijaKorisnika() throws IOException {
-        //otvara se excel tabela radi provere da li vec postoji korisnicko ime u bazi
-        File file = new File("TabelaKorisnika.xlsx");
-
-        FileInputStream fip = new FileInputStream(file);
-        XSSFWorkbook wb = new XSSFWorkbook(fip);
-        Sheet sh1 = wb.getSheet("RegistrovaniKorisnici");
-
-
         Scanner sc = new Scanner(System.in);
         System.out.println("Unesi ime: ");
         String ime = sc.next();
@@ -114,24 +106,8 @@ public class RegistrovaniKorisnici extends Osoba {
         System.out.println("Unesite email adresu: ");
         String eMail = sc.next();
 
-
-            System.out.println("Unesite korisnicko ime: ");
-            String korisnickoIme = sc.next();
-
-            boolean validan = true;
-            while(validan) {
-                for (int i = 1; i <= sh1.getLastRowNum(); i++) {
-                    Row r = sh1.getRow(i);
-                    if (r.getCell(6).getStringCellValue().equals(korisnickoIme)) {
-                        System.out.println("Korisnicko ime vec postoji.");
-                        System.out.println("Unesite drugo korisnicko ime: ");
-                        korisnickoIme = sc.next();
-                        break;
-                    } else {
-                        validan = false;
-                    }
-                }
-            }
+        System.out.println("Unesite korisnicko ime: ");
+        String korisnickoIme = sc.next();
 
         System.out.println("Unesite lozinku: ");
         String lozinka = sc.next();

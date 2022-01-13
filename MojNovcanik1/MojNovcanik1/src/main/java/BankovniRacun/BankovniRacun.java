@@ -165,31 +165,15 @@ public class BankovniRacun extends RegistrovaniKorisnici {
         FileInputStream fip = new FileInputStream(fl);
         XSSFWorkbook wb = new XSSFWorkbook(fip);
         Sheet sh1 = wb.getSheet("Bankovni racuni");
-    // iterira se kroz racune u sheet-u
-        for (int i = 1; i <= sh1.getLastRowNum(); i++) {
-            int brojac = 0;
+
+        for (int i = 1; i < sh1.getLastRowNum(); i++) {
             Row r = sh1.getRow(i);
-            // trazi se id i broj racuna korisnika koji odgovaraju prosledjenim parametrima
             if (r.getCell(0).getNumericCellValue() == id && r.getCell(1).getNumericCellValue() == brojRacuna) {
-                //proverava se da li korisnik ima sredstava na racunu. ako ima sredstava, racun ne moze biti ugasen
                 if (r.getCell(2).getNumericCellValue() == 0) {
                     System.out.println("Na vasem racunu nemate sredstava. Racun moze biti ugasen. Da li ste sigurni da zelite da ugasite ovaj racun?DA/NE");
                     String a = "da";
-                    a = sc.next();
                     if (a.equalsIgnoreCase("DA")) {
-                        //brise se red i posto ostaju prazni redovi nakon brisanja, kroz for petlju pomeraju se preostali redovi
                         sh1.removeRow(r);
-                        for (int j = 0; j < sh1.getLastRowNum(); j++) {
-                            if (sh1.getRow(j) == null) {
-                                sh1.shiftRows(j + 1, sh1.getLastRowNum(), -1);
-                                j--;
-                            }
-                        }
-                        FileOutputStream fos = new FileOutputStream("TabelaKorisnika.xlsx");
-                        fip.close();
-                        wb.write(fos);
-                        wb.close();
-
                         System.out.println("Uspesno ste ugasili racun.");
                         break;
                     } else if (a.equalsIgnoreCase("NE")) {
@@ -199,8 +183,10 @@ public class BankovniRacun extends RegistrovaniKorisnici {
                         gasenjeRacuna(id, brojRacuna);
                     }
                 }
+
             }
         }
+
     }
 
     public void ispisUExcelKolone(BankovniRacun br, Row r) {

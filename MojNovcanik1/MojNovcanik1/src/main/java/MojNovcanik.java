@@ -36,11 +36,11 @@ public class MojNovcanik {
             System.out.println("Uspesno ste se registrovali");
             System.out.println("Zelite li da se ulogujete?DA/NE");
             String z = sc.next();
-            if(z.equalsIgnoreCase("DA")){
+            if(z.equals("DA")){
                 int id = logIn();
                 pocetniMeni(id);
             }
-            else if(z.equalsIgnoreCase("NE")){
+            else if(z.equals("NE")){
                 System.out.println("Kraj programa");
                 System.exit(0);
             }
@@ -76,7 +76,7 @@ public class MojNovcanik {
             BankovniRacun br = new BankovniRacun(id);
             ArrayList<BankovniRacun> racuni = br.racuniKorisnika(id);
             if (racuni.size() == 1) {
-                br.gasenjeRacuna(id, racuni.get(0).getBrojRacuna());
+                br.gasenjeRacuna(id, br.getBrojRacuna());
                 pocetniMeni(id);
             } else if (racuni.size() > 1) {
                 int brojac = 1;
@@ -97,7 +97,7 @@ public class MojNovcanik {
             BankovniRacun br1 = new BankovniRacun(id);
             ArrayList<BankovniRacun> racuni = br1.racuniKorisnika(id);
             if(racuni.size() == 1) {
-                meniKonkretnogRacuna(id, racuni.get(0).getBrojRacuna());
+                meniKonkretnogRacuna(id, racuni.get(1).getBrojRacuna());
             }
             else if(racuni.size() == 0){
                 System.out.println("Nemate otvorenih racuna.");
@@ -132,7 +132,7 @@ public class MojNovcanik {
         int z = sc.nextInt();
         if(z == 1) {
             String a = "DA";
-            while (a.equalsIgnoreCase("DA")) {
+            while (a.equals("DA")) {
                 System.out.println("Unesite zeljeni iznos");
                 int n = sc.nextInt();
                 BankovniRacun br = new BankovniRacun(id, brojRacuna);
@@ -140,14 +140,14 @@ public class MojNovcanik {
                 System.out.println("Novo stanje na vasem racunu je: " + br.getStanjeNaRacunu());
                 System.out.println("Zelite li novu uplatu?DA/NE");
                 a = sc.next();
-                if(a.equalsIgnoreCase("NE")){
+                if(a.equals("NE")){
                     meniKonkretnogRacuna(id, brojRacuna);
                 }
             }
         }
         else if(z == 2){
             String b = "DA";
-            while(b.equalsIgnoreCase("DA")){
+            while(b.equals("DA")){
             System.out.println("Unesite zeljeni iznos: ");
             double m = sc.nextDouble();
             BankovniRacun br = new BankovniRacun(id);
@@ -155,7 +155,7 @@ public class MojNovcanik {
             System.out.println("Novo stanje na vasem racunu je: " + br.getStanjeNaRacunu());
             System.out.println("Zelite li novu isplatu?DA/NE");
             b = sc.next();
-            if(b.equalsIgnoreCase("NE")){
+            if(b.equals("NE")){
                 meniKonkretnogRacuna(id, brojRacuna);
             }
             }
@@ -183,14 +183,14 @@ public class MojNovcanik {
             }
 
             String a = "DA";
-            while (a.equalsIgnoreCase("DA")) {
+            while (a == "DA") {
                 Placanja p = uplatnica(id, brojRacuna);
                 double isplata = p.getIznos();
                 p.isplata(isplata, id, brojRacuna);
                 p.upisUExcelTabeluPlacanja(p);
                 System.out.println("Zelite li novo placanje?DA/NE");
                 a = sc.next();
-                if(a.equalsIgnoreCase("NE")){
+                if(a.equals("NE")){
                     meniKonkretnogRacuna(id, brojRacuna);
                 }
             }
@@ -262,7 +262,7 @@ public class MojNovcanik {
                 default:
                     System.out.println("Niste uneli dobru vrednost. Zelite li da se unese 'Ostalo' ili biste ponovo pokusali da unesete vrednost?DA/NE");
                     String a = sc.next();
-                    if (a.equalsIgnoreCase("DA")) {
+                    if (a.equals("DA")) {
                         svrha = "Ostalo";
                         t = false;
                         break;
