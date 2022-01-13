@@ -1,0 +1,10 @@
+MOJ NOVCANIK - izmene
+
+1. Popravljena funkcija gasenjeRacuna (u okviru klase BankovniRacun) - nije brisala redove u tabeli
+(popravljeno:brisu se redovi u tabeli, pomeraju preostali, na konzoli sve sada funkcionise ok)
+
+2. Dodata provera da li vec postoji username(prilikom registracije korisnika)
+
+3. Za ostale DA/NE odgovore promenjeno citanje unosa sa konzole (umesto equals, equalsIgnoreCase)
+
+
