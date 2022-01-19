@@ -7,4 +7,15 @@ MOJ NOVCANIK - izmene
 
 3. Za ostale DA/NE odgovore promenjeno citanje unosa sa konzole (umesto equals, equalsIgnoreCase)
 
+izmene do 18.01.
+
+4. Izmene u metodi isplata(dodat jos jedan parametar za pronalazak racuna)
+5. Izmene u glavnoj klasi - u meniju "meniKonkretnogRacuna" dodata jos jedna mogucnost, "Stanje na racunu"
+6. Napravljena nova funkcija "stanjeNaRacunu", koja pretrazuje tabelu korisnika i dolazi do stanja na racunu za konkretnog korisnika
+
+izmene do 19.01.
+7. Napravljena funkcija koja izlistava placanja po datumu
+8.Napravljena funkcija koja izlistava placanja po svrsi uplate
+
+
 
