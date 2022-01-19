@@ -123,12 +123,6 @@ public class BankovniRacun extends RegistrovaniKorisnici {
         Sheet sh1 = wb.getSheet("Bankovni racuni");
         int brojac = sh1.getLastRowNum() + 1;
         int id = sh1.getLastRowNum();
-        if (file.isFile() && file.exists()) {
-            System.out.println("TabelaKorisnika open");
-        } else {
-            System.out.println("TabelaKorisnika either not exist or can't open");
-        }
-
 
         for (BankovniRacun racun : nizRacuna) {
             Row row = sh1.createRow(brojac);
@@ -157,6 +151,21 @@ public class BankovniRacun extends RegistrovaniKorisnici {
         nizRacuna.add(br);
         br.ispisUExcelRacun(nizRacuna);
     }
+    public double stanjeNaRacunu() throws IOException {
+        double stanje = 0;
+        File fl = new File("TabelaKorisnika.xlsx");
+
+        FileInputStream fip = new FileInputStream(fl);
+        XSSFWorkbook wb = new XSSFWorkbook(fip);
+        Sheet sh1 = wb.getSheet("Bankovni racuni");
+        for (int i = 1; i <= sh1.getLastRowNum(); i++) {
+            Row r = sh1.getRow(i);
+            if (r.getCell(0).getNumericCellValue() == id && r.getCell(1).getNumericCellValue() == brojRacuna) {
+                stanje = r.getCell(2).getNumericCellValue();
+            }
+        }
+        return stanje;
+    }
 
     public void gasenjeRacuna(int id, int brojRacuna) throws IOException {
         Scanner sc = new Scanner(System.in);
@@ -165,8 +174,13 @@ public class BankovniRacun extends RegistrovaniKorisnici {
         FileInputStream fip = new FileInputStream(fl);
         XSSFWorkbook wb = new XSSFWorkbook(fip);
         Sheet sh1 = wb.getSheet("Bankovni racuni");
+<<<<<<< Updated upstream
 
         for (int i = 1; i < sh1.getLastRowNum(); i++) {
+=======
+        // iterira se kroz racune u sheet-u
+        for (int i = 1; i <= sh1.getLastRowNum(); i++) {
+>>>>>>> Stashed changes
             Row r = sh1.getRow(i);
             if (r.getCell(0).getNumericCellValue() == id && r.getCell(1).getNumericCellValue() == brojRacuna) {
                 if (r.getCell(2).getNumericCellValue() == 0) {
@@ -182,12 +196,15 @@ public class BankovniRacun extends RegistrovaniKorisnici {
                         System.out.println("Niste uneli rec koja je trazena. Pokusajte ponovo");
                         gasenjeRacuna(id, brojRacuna);
                     }
+                } else {
+                    System.out.println("Na racunu imate sredstava. Kako biste ugasili racun iznos sredstava na racunu mora biti 0.");
                 }
 
             }
         }
 
     }
+
 
     public void ispisUExcelKolone(BankovniRacun br, Row r) {
 
@@ -214,8 +231,11 @@ public class BankovniRacun extends RegistrovaniKorisnici {
         for (int i = 1; i <= sh1.getLastRowNum(); i++) {
             Row r = sh1.getRow(i);
             Cell c = r.getCell(0);
+            Cell cr = r.getCell(1);
             Cell celijaIznos = r.getCell(2);
-            if (c.getNumericCellValue() == id) {
+
+
+            if (c.getNumericCellValue() == id && cr.getNumericCellValue() == brojRacuna) {
                 double stanje = celijaIznos.getNumericCellValue();
 
                 if (x > stanje) {
