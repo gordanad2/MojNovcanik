@@ -175,8 +175,13 @@ public class BankovniRacun extends RegistrovaniKorisnici {
         XSSFWorkbook wb = new XSSFWorkbook(fip);
         Sheet sh1 = wb.getSheet("Bankovni racuni");
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
         for (int i = 1; i < sh1.getLastRowNum(); i++) {
+=======
+        // iterira se kroz racune u sheet-u
+        for (int i = 1; i <= sh1.getLastRowNum(); i++) {
+>>>>>>> Stashed changes
 =======
         // iterira se kroz racune u sheet-u
         for (int i = 1; i <= sh1.getLastRowNum(); i++) {

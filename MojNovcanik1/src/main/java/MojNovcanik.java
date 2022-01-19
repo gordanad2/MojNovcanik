@@ -37,11 +37,18 @@ public class MojNovcanik {
             System.out.println("Zelite li da se ulogujete?DA/NE");
             String z = sc.next();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             if(z.equals("DA")){
                 int id = logIn();
                 pocetniMeni(id);
             }
             else if(z.equals("NE")){
+=======
+            if (z.equalsIgnoreCase("DA")) {
+                int id = logIn();
+                pocetniMeni(id);
+            } else if (z.equalsIgnoreCase("NE")) {
+>>>>>>> Stashed changes
 =======
             if (z.equalsIgnoreCase("DA")) {
                 int id = logIn();
@@ -102,10 +109,16 @@ public class MojNovcanik {
             BankovniRacun br1 = new BankovniRacun(id);
             ArrayList<BankovniRacun> racuni = br1.racuniKorisnika(id);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             if(racuni.size() == 1) {
                 meniKonkretnogRacuna(id, racuni.get(1).getBrojRacuna());
             }
             else if(racuni.size() == 0){
+=======
+            if (racuni.size() == 1) {
+                meniKonkretnogRacuna(id, racuni.get(0).getBrojRacuna());
+            } else if (racuni.size() == 0) {
+>>>>>>> Stashed changes
 =======
             if (racuni.size() == 1) {
                 meniKonkretnogRacuna(id, racuni.get(0).getBrojRacuna());
@@ -158,7 +171,11 @@ public class MojNovcanik {
                 System.out.println("Zelite li novu uplatu?DA/NE");
                 a = sc.next();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 if(a.equals("NE")){
+=======
+                if (a.equalsIgnoreCase("NE")) {
+>>>>>>> Stashed changes
 =======
                 if (a.equalsIgnoreCase("NE")) {
 >>>>>>> Stashed changes
@@ -167,6 +184,7 @@ public class MojNovcanik {
             }
         } else if (z == 3) {
             String b = "DA";
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
             while(b.equals("DA")){
             System.out.println("Unesite zeljeni iznos: ");
@@ -180,6 +198,8 @@ public class MojNovcanik {
                 meniKonkretnogRacuna(id, brojRacuna);
             }
 =======
+=======
+>>>>>>> Stashed changes
             while (b.equalsIgnoreCase("DA")) {
                 System.out.println("Unesite zeljeni iznos: ");
                 double m = sc.nextDouble();
@@ -190,6 +210,9 @@ public class MojNovcanik {
                 if (b.equalsIgnoreCase("NE")) {
                     meniKonkretnogRacuna(id, brojRacuna);
                 }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
             }
         } else if (z == 4) {
@@ -213,6 +236,7 @@ public class MojNovcanik {
                 kreirajStranuPlacanja(id, brojRacuna);
             }
             meniOnlinePlacanja(brojRacuna, id);
+<<<<<<< Updated upstream
 
         } else if (z == 6) {
             pocetniMeni(id);
@@ -222,6 +246,17 @@ public class MojNovcanik {
         }
     }
 
+=======
+
+        } else if (z == 6) {
+            pocetniMeni(id);
+        } else if (z == 7) {
+            System.out.println("Uspesno ste se izlogovali. Hvala sto ste koristili aplikaciju nasu aplikaciju!");
+            System.exit(0);
+        }
+    }
+
+>>>>>>> Stashed changes
     public static void meniOnlinePlacanja(int brojRacuna, int id) throws IOException {
         Scanner sc = new Scanner(System.in);
         System.out.println("1. Novo placanje");
@@ -240,8 +275,13 @@ public class MojNovcanik {
                 System.out.println("Zelite li novo placanje?DA/NE");
                 a = sc.next();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 if(a.equals("NE")){
                     meniKonkretnogRacuna(id, brojRacuna);
+=======
+                if (a.equalsIgnoreCase("NE")) {
+                    meniOnlinePlacanja(id, brojRacuna);
+>>>>>>> Stashed changes
 =======
                 if (a.equalsIgnoreCase("NE")) {
                     meniOnlinePlacanja(id, brojRacuna);
@@ -279,6 +319,7 @@ public class MojNovcanik {
                         break;
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 case 2:
                     svrha = "Racuni";
                     t = false;
@@ -304,6 +345,8 @@ public class MojNovcanik {
                     String a = sc.next();
                     if (a.equals("DA")) {
 =======
+=======
+>>>>>>> Stashed changes
                     case 2:
                         svrha = "Racuni";
                         t = false;
@@ -321,6 +364,9 @@ public class MojNovcanik {
                         t = false;
                         break;
                     case 6:
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
                         svrha = "Ostalo";
                         t = false;
