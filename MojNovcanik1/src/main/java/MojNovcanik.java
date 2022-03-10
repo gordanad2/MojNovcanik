@@ -36,28 +36,14 @@ public class MojNovcanik {
             System.out.println("Uspesno ste se registrovali");
             System.out.println("Zelite li da se ulogujete?DA/NE");
             String z = sc.next();
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-            if(z.equals("DA")){
-                int id = logIn();
-                pocetniMeni(id);
-            }
-            else if(z.equals("NE")){
-=======
             if (z.equalsIgnoreCase("DA")) {
                 int id = logIn();
                 pocetniMeni(id);
             } else if (z.equalsIgnoreCase("NE")) {
->>>>>>> Stashed changes
-=======
-            if (z.equalsIgnoreCase("DA")) {
-                int id = logIn();
-                pocetniMeni(id);
-            } else if (z.equalsIgnoreCase("NE")) {
->>>>>>> Stashed changes
                 System.out.println("Kraj programa");
                 System.exit(0);
             }
+
         } else if (x == 2) {
             //poziva se metoda za log in, i cuva se id broj korisnika, kako bi se kasnije promene vezivale za konkretnog korisnika
             int id = logIn();
@@ -66,7 +52,6 @@ public class MojNovcanik {
             }
         }
     }
-
 
     //pocetni meni - prvi po ulasku u aplikaciju
     public static void pocetniMeni(int id) throws IOException {
@@ -108,22 +93,10 @@ public class MojNovcanik {
         } else if (y == 3) {
             BankovniRacun br1 = new BankovniRacun(id);
             ArrayList<BankovniRacun> racuni = br1.racuniKorisnika(id);
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-            if(racuni.size() == 1) {
-                meniKonkretnogRacuna(id, racuni.get(1).getBrojRacuna());
-            }
-            else if(racuni.size() == 0){
-=======
+
             if (racuni.size() == 1) {
                 meniKonkretnogRacuna(id, racuni.get(0).getBrojRacuna());
             } else if (racuni.size() == 0) {
->>>>>>> Stashed changes
-=======
-            if (racuni.size() == 1) {
-                meniKonkretnogRacuna(id, racuni.get(0).getBrojRacuna());
-            } else if (racuni.size() == 0) {
->>>>>>> Stashed changes
                 System.out.println("Nemate otvorenih racuna.");
                 pocetniMeni(id);
             } else {
@@ -152,7 +125,7 @@ public class MojNovcanik {
         System.out.println("1.Stanje na racunu");
         System.out.println("2.Uplata na racun");
         System.out.println("3.Isplata sa racuna");
-        System.out.println("4. Konvertovanje novca");
+        //    System.out.println("4. Konvertovanje novca");
         System.out.println("5. Online placanja");
         System.out.println("6. Povratak na prethodni meni.");
         System.out.println("7. Log out ");
@@ -163,61 +136,46 @@ public class MojNovcanik {
             meniKonkretnogRacuna(id, brojRacuna);
         } else if (z == 2) {
             String a = "DA";
-            while (a.equals("DA")) {
+            while (a.equalsIgnoreCase("DA")) {
                 System.out.println("Unesite zeljeni iznos");
                 int n = sc.nextInt();
                 br.uplata(n, id, brojRacuna);
                 System.out.println("Novo stanje na vasem racunu je: " + br.getStanjeNaRacunu());
                 System.out.println("Zelite li novu uplatu?DA/NE");
                 a = sc.next();
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                if(a.equals("NE")){
-=======
+
                 if (a.equalsIgnoreCase("NE")) {
->>>>>>> Stashed changes
-=======
-                if (a.equalsIgnoreCase("NE")) {
->>>>>>> Stashed changes
                     meniKonkretnogRacuna(id, brojRacuna);
                 }
             }
         } else if (z == 3) {
             String b = "DA";
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-            while(b.equals("DA")){
-            System.out.println("Unesite zeljeni iznos: ");
-            double m = sc.nextDouble();
-            BankovniRacun br = new BankovniRacun(id);
-            br.isplata(m, id, brojRacuna);
-            System.out.println("Novo stanje na vasem racunu je: " + br.getStanjeNaRacunu());
-            System.out.println("Zelite li novu isplatu?DA/NE");
-            b = sc.next();
-            if(b.equals("NE")){
-                meniKonkretnogRacuna(id, brojRacuna);
-            }
-=======
-=======
->>>>>>> Stashed changes
+
             while (b.equalsIgnoreCase("DA")) {
                 System.out.println("Unesite zeljeni iznos: ");
                 double m = sc.nextDouble();
-                br.isplata(m, id, brojRacuna);
-                System.out.println("Novo stanje na vasem racunu je: " + br.getStanjeNaRacunu());
+                BankovniRacun bankRac = new BankovniRacun(id);
+                bankRac.isplata(m, id, brojRacuna);
+                System.out.println("Novo stanje na vasem racunu je: " + bankRac.getStanjeNaRacunu());
                 System.out.println("Zelite li novu isplatu?DA/NE");
                 b = sc.next();
+
+                while (b.equalsIgnoreCase("DA")) {
+                    System.out.println("Unesite zeljeni iznos: ");
+                    double x = sc.nextDouble();
+                    br.isplata(x, id, brojRacuna);
+                    System.out.println("Novo stanje na vasem racunu je: " + bankRac.getStanjeNaRacunu());
+                    System.out.println("Zelite li novu isplatu?DA/NE");
+                    b = sc.next();
+                }
                 if (b.equalsIgnoreCase("NE")) {
                     meniKonkretnogRacuna(id, brojRacuna);
                 }
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
             }
-        } else if (z == 4) {
-            System.out.println("Deo aplikacije u izradi.");
-            meniKonkretnogRacuna(id, brojRacuna);
+/*        }else if (z == 4) {
+                        System.out.println("Deo aplikacije u izradi.");
+                        meniKonkretnogRacuna(id, brojRacuna);*/
+
         } else if (z == 5) {
 
             // pravljenje tabele placanja za konkretan racun, ukoliko tabela ne postoji
@@ -236,7 +194,6 @@ public class MojNovcanik {
                 kreirajStranuPlacanja(id, brojRacuna);
             }
             meniOnlinePlacanja(brojRacuna, id);
-<<<<<<< Updated upstream
 
         } else if (z == 6) {
             pocetniMeni(id);
@@ -246,17 +203,6 @@ public class MojNovcanik {
         }
     }
 
-=======
-
-        } else if (z == 6) {
-            pocetniMeni(id);
-        } else if (z == 7) {
-            System.out.println("Uspesno ste se izlogovali. Hvala sto ste koristili aplikaciju nasu aplikaciju!");
-            System.exit(0);
-        }
-    }
-
->>>>>>> Stashed changes
     public static void meniOnlinePlacanja(int brojRacuna, int id) throws IOException {
         Scanner sc = new Scanner(System.in);
         System.out.println("1. Novo placanje");
@@ -267,26 +213,17 @@ public class MojNovcanik {
         int n = sc.nextInt();
         if (n == 1) {
             String a = "DA";
-            while (a == "DA") {
+            while (a.equalsIgnoreCase("DA")) {
                 Placanja p = uplatnica(id, brojRacuna);
                 double isplata = p.getIznos();
                 p.isplata(isplata, id, brojRacuna);
                 p.upisUExcelTabeluPlacanja(p);
                 System.out.println("Zelite li novo placanje?DA/NE");
                 a = sc.next();
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                if(a.equals("NE")){
-                    meniKonkretnogRacuna(id, brojRacuna);
-=======
-                if (a.equalsIgnoreCase("NE")) {
-                    meniOnlinePlacanja(id, brojRacuna);
->>>>>>> Stashed changes
-=======
-                if (a.equalsIgnoreCase("NE")) {
-                    meniOnlinePlacanja(id, brojRacuna);
->>>>>>> Stashed changes
-                }
+            }
+            if (a.equalsIgnoreCase("NE")) {
+                meniOnlinePlacanja(id, brojRacuna);
+
             }
         } else if (n == 2) {
             System.out.println("Unesite datum");
@@ -317,36 +254,6 @@ public class MojNovcanik {
                         svrha = "Hrana";
                         t = false;
                         break;
-
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                case 2:
-                    svrha = "Racuni";
-                    t = false;
-                    break;
-                case 3:
-                    svrha = "Zabava";
-                    t = false;
-                    break;
-                case 4:
-                    svrha = "Putovanja";
-                    t = false;
-                    break;
-                case 5:
-                    svrha = "Online kupovina";
-                    t = false;
-                    break;
-                case 6:
-                    svrha = "Ostalo";
-                    t = false;
-                    break;
-                default:
-                    System.out.println("Niste uneli dobru vrednost. Zelite li da se unese 'Ostalo' ili biste ponovo pokusali da unesete vrednost?DA/NE");
-                    String a = sc.next();
-                    if (a.equals("DA")) {
-=======
-=======
->>>>>>> Stashed changes
                     case 2:
                         svrha = "Racuni";
                         t = false;
@@ -364,18 +271,15 @@ public class MojNovcanik {
                         t = false;
                         break;
                     case 6:
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
                         svrha = "Ostalo";
                         t = false;
                         break;
                     default:
-                        System.out.println("Niste uneli dobru vrednost. Zelite li da se unese 'Ostalo' ili biste ponovo pokusali da unesete vrednost?DA/NE");
+                        System.out.println("Niste uneli dobru vrednost. Da li biste ponovo pokusali da unesete vrednost?DA/NE");
                         String a = sc.next();
                         if (a.equalsIgnoreCase("DA")) {
-                            svrha = "Ostalo";
+                            t = true;
+                        } else if (a.equalsIgnoreCase("NE")) {
                             t = false;
                             break;
                         }
@@ -384,8 +288,7 @@ public class MojNovcanik {
             System.out.println("Za svrhu uplate: " + svrha);
             placanjaPoKategoriji(brojRacuna, svrha);
             meniOnlinePlacanja(brojRacuna, id);
-        }
-        else if(n == 4){
+        } else if (n == 4) {
             meniKonkretnogRacuna(id, brojRacuna);
         }
     }

@@ -1,5 +1,6 @@
 package BankovniRacun;
 
+import ExcelReader.ExcelReader;
 import Prijava.RegistrovaniKorisnici;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -13,38 +14,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class BankovniRacun extends RegistrovaniKorisnici {
     protected RegistrovaniKorisnici korisnik;
     protected int brojRacuna;
     protected double stanjeNaRacunu;
     protected String valuta;
+    private ExcelReader excelReader;
 
     public BankovniRacun(String ime, String prezime, String maticniBroj, String adresa, String kucniBroj, int brojStana, String eMail, String korisnickoIme, String lozinka, int id, RegistrovaniKorisnici korisnik, int brojRacuna, double stanjeNaRacunu, String valuta) {
         super(ime, prezime, maticniBroj, adresa, kucniBroj, brojStana, eMail, korisnickoIme, lozinka, id);
-        this.korisnik = korisnik;
-        this.brojRacuna = brojRacuna;
-        this.stanjeNaRacunu = stanjeNaRacunu;
-        this.valuta = valuta;
-    }
-
-    public BankovniRacun(String ime, String prezime, String maticniBroj, String adresa, String kucniBroj, String eMail, String korisnickoIme, String lozinka, int id, RegistrovaniKorisnici korisnik, int brojRacuna, double stanjeNaRacunu, String valuta) {
-        super(ime, prezime, maticniBroj, adresa, kucniBroj, eMail, korisnickoIme, lozinka, id);
-        this.korisnik = korisnik;
-        this.brojRacuna = brojRacuna;
-        this.stanjeNaRacunu = stanjeNaRacunu;
-        this.valuta = valuta;
-    }
-
-    public BankovniRacun(String ime, String prezime, String maticniBroj, String adresa, String eMail, String korisnickoIme, String lozinka, int id, RegistrovaniKorisnici korisnik, int brojRacuna, double stanjeNaRacunu, String valuta) {
-        super(ime, prezime, maticniBroj, adresa, eMail, korisnickoIme, lozinka, id);
-        this.korisnik = korisnik;
-        this.brojRacuna = brojRacuna;
-        this.stanjeNaRacunu = stanjeNaRacunu;
-        this.valuta = valuta;
-    }
-
-    public BankovniRacun(String ime, String prezime, String maticniBroj, String adresa, String eMail, String korisnickoIme, String lozinka, RegistrovaniKorisnici korisnik, int brojRacuna, double stanjeNaRacunu, String valuta) {
-        super(ime, prezime, maticniBroj, adresa, eMail, korisnickoIme, lozinka);
         this.korisnik = korisnik;
         this.brojRacuna = brojRacuna;
         this.stanjeNaRacunu = stanjeNaRacunu;
@@ -151,6 +130,7 @@ public class BankovniRacun extends RegistrovaniKorisnici {
         nizRacuna.add(br);
         br.ispisUExcelRacun(nizRacuna);
     }
+
     public double stanjeNaRacunu() throws IOException {
         double stanje = 0;
         File fl = new File("TabelaKorisnika.xlsx");
@@ -171,28 +151,14 @@ public class BankovniRacun extends RegistrovaniKorisnici {
         Scanner sc = new Scanner(System.in);
         File fl = new File("TabelaKorisnika.xlsx");
 
-        FileInputStream fip = new FileInputStream(fl);
-        XSSFWorkbook wb = new XSSFWorkbook(fip);
-        Sheet sh1 = wb.getSheet("Bankovni racuni");
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-
-        for (int i = 1; i < sh1.getLastRowNum(); i++) {
-=======
         // iterira se kroz racune u sheet-u
-        for (int i = 1; i <= sh1.getLastRowNum(); i++) {
->>>>>>> Stashed changes
-=======
-        // iterira se kroz racune u sheet-u
-        for (int i = 1; i <= sh1.getLastRowNum(); i++) {
->>>>>>> Stashed changes
-            Row r = sh1.getRow(i);
-            if (r.getCell(0).getNumericCellValue() == id && r.getCell(1).getNumericCellValue() == brojRacuna) {
-                if (r.getCell(2).getNumericCellValue() == 0) {
+        for (int i = 1; i <= excelReader.getLastRow("Bankovni racuni"); i++) {
+            if (excelReader.getIntegerData("Bankovni racuni", i, 0) == id && excelReader.getIntegerData("Bankovni racuni", i, 1) == brojRacuna) {
+                if (excelReader.getIntegerData("Bankovni racuni", i, 2) == 0) {
                     System.out.println("Na vasem racunu nemate sredstava. Racun moze biti ugasen. Da li ste sigurni da zelite da ugasite ovaj racun?DA/NE");
-                    String a = "da";
+                    String a = sc.next();
                     if (a.equalsIgnoreCase("DA")) {
-                        sh1.removeRow(r);
+                        excelReader.removeRow("Bankovni racuni", i);
                         System.out.println("Uspesno ste ugasili racun.");
                         break;
                     } else if (a.equalsIgnoreCase("NE")) {
@@ -209,7 +175,6 @@ public class BankovniRacun extends RegistrovaniKorisnici {
         }
 
     }
-
 
     public void ispisUExcelKolone(BankovniRacun br, Row r) {
 
@@ -228,30 +193,25 @@ public class BankovniRacun extends RegistrovaniKorisnici {
     }
 
     public double isplata(double x, int id, int brojRacuna) throws IOException {
-        File fl = new File("TabelaKorisnika.xlsx");
+        excelReader = new ExcelReader("TabelaKorisnika.xlsx");
 
-        FileInputStream fip = new FileInputStream(fl);
-        XSSFWorkbook wb = new XSSFWorkbook(fip);
-        Sheet sh1 = wb.getSheet("Bankovni racuni");
-        for (int i = 1; i <= sh1.getLastRowNum(); i++) {
-            Row r = sh1.getRow(i);
-            Cell c = r.getCell(0);
-            Cell cr = r.getCell(1);
-            Cell celijaIznos = r.getCell(2);
+        for (int i = 1; i <= excelReader.getLastRow("Bankovni racuni"); i++) {
 
-
-            if (c.getNumericCellValue() == id && cr.getNumericCellValue() == brojRacuna) {
-                double stanje = celijaIznos.getNumericCellValue();
+            if (excelReader.getIntegerData("Bankovni racuni", i, 0) == id && excelReader.getIntegerData("Bankovni racuni", i, 1) == brojRacuna) {
+                double stanje = excelReader.getIntegerData("Bankovni racuni", i, 2);
 
                 if (x > stanje) {
                     System.out.println("Nemate dovoljno novca na racunu. Unesite drugi iznos koji zelite da podignete.");
                 } else {
                     stanjeNaRacunu = stanje - x;
-                    celijaIznos.setCellValue(stanjeNaRacunu);
+                    excelReader.getCell("Bankovni racuni", i, 2).setCellValue(stanjeNaRacunu);
                 }
             }
         }
         try (FileOutputStream fos = new FileOutputStream("TabelaKorisnika.xlsx")) {
+            File fl = new File("TabelaKorisnika.xlsx");
+            FileInputStream fip = new FileInputStream(fl);
+            XSSFWorkbook wb = new XSSFWorkbook(fip);
             fip.close();
             wb.write(fos);
             wb.close();
